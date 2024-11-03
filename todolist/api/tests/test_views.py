@@ -6,12 +6,10 @@ from api.models import Task
 
 class TaskViewsTests(APITestCase):
     def setUp(self):
-        
         Task.objects.create(title="Tarefa 1", description="Descrição da tarefa 1", completed=False)
         Task.objects.create(title="Tarefa 2", description="Descrição da tarefa 2", completed=True)
 
     def test_get_tasks(self):
-        
         url = reverse('get_tasks')
         response = self.client.get(url)
         
