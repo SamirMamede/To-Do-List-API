@@ -25,25 +25,41 @@ A simple task management API built with Django and Django REST Framework.
   - created_at timestamp
   - completed_at timestamp
 
+## API Endpoints 🛠️
+
+### GET /api/tasks/
+- Lists all tasks in the system
+- Returns task details including title, description, completion status and timestamps
+- Success Response: 200 OK
+
+### POST /api/tasks/create/
+- Creates a new task
+- Required fields:
+  - title: string
+- Optional fields:
+  - description: string
+  - completed: boolean
+- Success Response: 201 Created
+- Error Response: 400 Bad Request (invalid data)
+
 ### Tests Coverage ✅
-- Model Tests:
-  - Task creation with default values
-  - String representation
-  - Task completion/uncompletion behavior
-  - Task updates without affecting completion status
-
-- Serializer Tests:
-  - Field validation
-  - Required fields checking
-  - Data serialization
-
 - View Tests:
   - Task listing (GET /api/tasks/)
+  - Task creation with minimal data
+  - Task creation with all fields
+  - Task creation with invalid data
+  - Response status code validation
+  - Response data validation
+  
+- Serializer Tests:
+  - Task serialization validation
+  - Task deserialization validation
+  - Required fields validation
+  - Optional fields handling
 
-## Development Status 🚧
-
-The project currently has:
-- Complete data model implementation
-- Basic task listing functionality
-- Comprehensive test coverage for models and serializers
-- Initial API endpoint for listing tasks
+- Model Tests:
+  - Task creation
+  - Task string representation
+  - Automatic completed_at timestamp setting
+  - Completed status toggle behavior
+  - Field constraints validation
