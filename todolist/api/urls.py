@@ -6,4 +6,3 @@ urlpatterns = [
     path('tasks/create/', create_task, name='create_task'),
     path('tasks/<int:pk>/', task_detail, name='task_detail'),
 ]
-

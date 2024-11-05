@@ -54,3 +54,62 @@ class TaskViewsTests(APITestCase):
         
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(Task.objects.count(), 2)
+
+    def test_get_task_detail(self):
+        task = Task.objects.first()
+        url = reverse('task_detail', args=[task.id])
+        response = self.client.get(url)
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['title'], 'Tarefa 1')
+        self.assertEqual(response.data['description'], 'Descrição da tarefa 1')
+        self.assertFalse(response.data['completed'])
+
+    def test_get_task_detail_not_found(self):
+        url = reverse('task_detail', args=[999])
+        response = self.client.get(url)
+        
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_update_task(self):
+        task = Task.objects.first()
+        url = reverse('task_detail', args=[task.id])
+        payload = {
+            'title': 'Tarefa Atualizada',
+            'description': 'Nova descrição',
+            'completed': True
+        }
+        
+        response = self.client.put(url, payload)
+        
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['title'], 'Tarefa Atualizada')
+        self.assertEqual(response.data['description'], 'Nova descrição')
+        self.assertTrue(response.data['completed'])
+
+    def test_update_task_invalid_data(self):
+        task = Task.objects.first()
+        url = reverse('task_detail', args=[task.id])
+        payload = {
+            'title': ''
+        }
+        
+        response = self.client.put(url, payload)
+        
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_delete_task(self):
+        task = Task.objects.first()
+        url = reverse('task_detail', args=[task.id])
+        
+        response = self.client.delete(url)
+        
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Task.objects.count(), 1)
+
+    def test_delete_task_not_found(self):
+        url = reverse('task_detail', args=[999])
+        
+        response = self.client.delete(url)
+        
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
