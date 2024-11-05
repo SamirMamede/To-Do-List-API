@@ -38,19 +38,19 @@ A simple task management API built with Django and Django REST Framework.
 - Returns 201 Created on success
 - Returns 400 Bad Request if invalid
 
-### GET /api/tasks/<pk>/
+### GET /api/tasks/{pk}/
 - Retrieves single task details
 - Returns 200 OK with task data
 - Returns 404 Not Found if invalid ID
 
-### PUT /api/tasks/<pk>/
+### PUT /api/tasks/{pk}/
 - Updates existing task
 - Can update title, description, completed
 - Returns 200 OK with updated data
 - Returns 400 Bad Request if invalid
 - Returns 404 Not Found if invalid ID
 
-### DELETE /api/tasks/<pk>/
+### DELETE /api/tasks/{pk}/
 - Deletes task
 - Returns 204 No Content on success
 - Returns 404 Not Found if invalid ID
@@ -63,11 +63,11 @@ A simple task management API built with Django and Django REST Framework.
     - Creation with all fields
     - Creation with invalid data
   - Task detail operations:
-    - Detail retrieval (GET /api/tasks/<id>/)
+    - Detail retrieval (GET /api/tasks/{id}/)
     - Detail retrieval for non-existent task
-    - Task update (PUT /api/tasks/<id>/)
+    - Task update (PUT /api/tasks/{id}/)
     - Task update with invalid data
-    - Task deletion (DELETE /api/tasks/<id>/)
+    - Task deletion (DELETE /api/tasks/{id}/)
     - Task deletion for non-existent task
   - Response validations:
     - Status codes (200, 201, 204, 400, 404)
